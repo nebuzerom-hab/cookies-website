@@ -1,0 +1,41 @@
+const loginService = require("../Service/login-service");
+
+async function login(req, res) {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ msg: "Email and password are required" });
+    }
+
+    // Call login service
+    const user = await loginService.loginUser(email, password);
+
+    // Set refresh token as httpOnly cookie
+    res.cookie("refreshToken", user.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    // Return access token and user info, including role
+    return res.status(200).json({
+      msg: "Login successful",
+      token: user.accessToken,
+      user: {
+        id: user.id,
+        email: user.email,
+        firstname: user.firstname,
+        role: user.role, // ⚡ include role here
+      },
+    });
+  } catch (error) {
+    console.error("Login error:", error.message || error);
+    return res.status(error.status || 500).json({
+      msg: error.message || "Internal server error",
+    });
+  }
+}
+
+module.exports = login;
