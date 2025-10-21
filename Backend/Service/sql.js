@@ -78,14 +78,15 @@ const createTables = `
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   ) ENGINE=InnoDB;
 
-  INSERT INTO roles (Company_role) 
-  VALUES ('Customer'), ('Staff'), ('Manager'), ('Admin');
+  INSERT IGNORE INTO roles (Company_role) 
+VALUES ('Customer'), ('Staff'), ('Manager'), ('Admin');
 
-  INSERT INTO users (user_firstName, user_lastName, user_email, user_password)
-  VALUES ('Admin', 'User', 'admin@gmail.com', '<hashed_password>');
+INSERT IGNORE INTO users (user_firstName, user_lastName, user_email, user_password)
+VALUES ('Admin', 'User', 'admin@gmail.com', '<hashed_password>');
 
-  INSERT INTO user_role (user_id, role_id)
-  VALUES (4, 4);
+INSERT IGNORE INTO user_role (user_id, role_id)
+VALUES (1, 4);
+
 `;
 
 module.exports = createTables;
