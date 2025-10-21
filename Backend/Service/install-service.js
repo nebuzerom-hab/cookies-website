@@ -18,8 +18,8 @@ async function install() {
     finalmessage.message = "All tables created successfully";
     finalmessage.status = 200;
   } catch (err) {
-    console.log("Error:", err.message);
-    finalmessage.message = "Not all tables were created";
+    console.log("Error:", err);
+    finalmessage.message = err.message;
     finalmessage.status = 500;
   }
 
