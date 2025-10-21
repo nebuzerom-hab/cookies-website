@@ -15,6 +15,7 @@ import three from "../../assets/3.jpg";
 import four from "../../assets/4.jpg";
 import five from "../../assets/5.jpg";
 import six from "../../assets/6.jpg";
+import Menu from "../pages/product/menu";
 
 // 💡 Add these fonts in your index.html head tag:
 // <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -98,6 +99,7 @@ const Layout = ({ children }) => {
           </p>
         </div>
       </div>
+      <Menu/>
 
       {children}
       <Footer />

@@ -1,4 +1,4 @@
-const installService = require("../service/install-service");
+const installService = require("../Service/install-service");
 
 async function install(req, res, next) {
   // res.send("the table is created")
