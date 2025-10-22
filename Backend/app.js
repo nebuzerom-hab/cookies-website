@@ -14,7 +14,7 @@ const indexroute=require("./Routes/index")
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:5173", // your frontend URL
+    origin: "*", // your frontend URL
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"], // ✅ allow auth header
     credentials: true, // ✅ allow cookies/Authorization headers
