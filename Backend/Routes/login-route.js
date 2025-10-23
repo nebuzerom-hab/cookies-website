@@ -7,6 +7,6 @@ const refreshToken =require("../Controller/refresh-controller");
 // POST /API/login
 router.post("/login", login);
 // POST /API/refresh
-router.post("/refresh", refreshToken);
+router.post("/refresh-token", refreshToken);
 
 module.exports = router;
