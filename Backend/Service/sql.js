@@ -87,6 +87,10 @@ VALUES ('Admin', 'User', 'admin@gmail.com', '<hashed_password>');
 INSERT IGNORE INTO user_role (user_id, role_id)
 VALUES (1, 4);
 
+UPDATE users
+SET user_password = '<copy_the_bcrypt_hash_here>'
+WHERE user_email = 'admin@gmail.com';
+
 `;
 
 module.exports = createTables;
