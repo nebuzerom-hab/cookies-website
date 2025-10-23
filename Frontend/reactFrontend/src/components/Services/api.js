@@ -1,8 +1,15 @@
 import axios from "axios";
 
+// Dynamic baseURL
+const baseURL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:1234/API"
+    : "https://cookies-website-1.onrender.com/API";
+
+// Create Axios instance
 const API = axios.create({
-  baseURL: "http://localhost:1234/API",
-  withCredentials: true, // ✅ needed for httpOnly cookie refresh
+  baseURL,
+  withCredentials: true, // send/receive httpOnly cookies
 });
 
 // Attach access token for protected routes
@@ -16,17 +23,18 @@ API.interceptors.request.use((req) => {
 
 // Response interceptor to handle expired access tokens
 API.interceptors.response.use(
-  (res) => res, // success, just return
+  (res) => res, // success
   async (err) => {
     const originalRequest = err.config;
 
     // If 401 (unauthorized) and we haven't retried yet
     if (err.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
+
       try {
-        // Call refresh endpoint
+        // Use the same baseURL dynamically
         const refreshRes = await axios.post(
-          "http://localhost:1234/API/refresh-token",
+          `${baseURL}/refresh-token`,
           {},
           { withCredentials: true }
         );

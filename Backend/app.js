@@ -6,20 +6,31 @@ require("dotenv").config();
 const app = express();
 const port = 1234;
 const indexroute=require("./Routes/index")
+const cookieParser = require("cookie-parser");
 
 
 
 // Load route files
 
 // Middleware
+const allowedOrigins = [
+  "http://localhost:5173", // for local dev (if using Vite)
+  "https://mycookies.nebiatzportfolio.com", // for live
+];
+
 app.use(
   cors({
-    origin: "*", // your frontend URL
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"], // ✅ allow auth header
-    credentials: true, // ✅ allow cookies/Authorization headers
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
   })
 );
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,6 +46,8 @@ app.use((req, res, next) => {
   res.setHeader("X-Frame-Options", "DENY");
   next();
 });
+// refresh cookies
+app.use(cookieParser());
 
 // Mount routes under /API
 app.use("/API" ,indexroute)
