@@ -1,6 +1,11 @@
-// Backend/Service/seedAndInstallProductTable.js
+// Backend/Service/productinstall.js
 const path = require("path");
-require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+
+// Load local .env only if not running in Render
+if (!process.env.DB_HOST) {
+  require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+}
+
 const { query } = require("../Database/DBConfi");
 const createProductTableSQL = require("./sqlproduct");
 
@@ -10,7 +15,7 @@ async function installAndSeedProducts() {
     await query(createProductTableSQL);
     console.log("✅ Product table created successfully!");
 
-    // 2️⃣ Sample products to seed
+    // 2️⃣ Sample products
     const products = [
       {
         name: "Chocolate Chip Cookies",
@@ -74,5 +79,10 @@ async function installAndSeedProducts() {
   }
 }
 
-// Run installer
-installAndSeedProducts();
+// 👇 Run directly only if this file is executed via `node productinstall.js`
+if (require.main === module) {
+  installAndSeedProducts();
+}
+
+// 👇 Export for route use (Render trigger)
+module.exports = installAndSeedProducts;

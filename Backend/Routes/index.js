@@ -4,10 +4,12 @@ const installRoute = require("./install-route");
 const registerRoute = require("./user-route");
 const loginRoute = require("./login-route");
  const orderRoute = require("./order-route");
- const productRoutes=require("./product-route")
+ const productRoutes=require("./product-route");
+ const productinstall=require("./productinstall-route");
 // const addressRoute = require("./Routes/address-route"); 
 // const forgetPasswordRoute = require("./Routes/forget-password-route");
 router.use(installRoute)
+router.use(productinstall)
 router.use(registerRoute)
 router.use(loginRoute);
 router.use(orderRoute);
