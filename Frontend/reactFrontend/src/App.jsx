@@ -10,7 +10,7 @@ import GuestOrder from "./components/pages/Orders/GuestOrder.jsx";
 import AboutUs from "./components/pages/aboutus.jsx";
 import ContactUs from "./components/pages/contactus.jsx";
 import AdminDashboard from "./components/pages/AdminDashboard.jsx";
-import Unauthorized from "./components/pages/unautorized.jsx";
+import Unauthorized from "./components/pages/unauthorized.jsx";
 import Menu from "./components/pages/product/menu.jsx";
 function App() {
   return (
