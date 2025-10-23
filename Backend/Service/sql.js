@@ -88,7 +88,7 @@ INSERT IGNORE INTO user_role (user_id, role_id)
 VALUES (1, 4);
 
 UPDATE users
-SET user_password = '<copy_the_bcrypt_hash_here>'
+SET user_password = '$2b$10$fjNm6GN/YaDk/c8CFiMwpe09k29pXwvggPYz.WKlDS7Sz.PZrdLAi'
 WHERE user_email = 'admin@gmail.com';
 
 `;
